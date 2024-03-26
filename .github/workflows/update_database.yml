@@ -1,9 +1,10 @@
 name: Daily Publication Sync
 
 on:
-  schedule:
-    # Runs at 0:00 AM JST, which is 15:00 UTC.
-    - cron: '48 5 * * *'
+  push:
+    branches:
+      - main
+      - stg
 
 jobs:
   sync_publications:
