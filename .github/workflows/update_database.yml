@@ -1,0 +1,27 @@
+name: Daily Publication Sync
+
+on:
+  schedule:
+    # Runs at 0:00 AM JST, which is 15:00 UTC.
+    - cron: '48 5 * * *'
+
+jobs:
+  sync_publications:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run the publication sync function
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: node -e 'require("./scheduled_functions/main.js").insertPublicationNames()'
