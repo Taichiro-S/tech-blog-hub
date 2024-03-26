@@ -25,6 +25,7 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-        run: ls -la
+        run: |
+          ls -la
           pwd
           node -e scheduled_functions/main.js
