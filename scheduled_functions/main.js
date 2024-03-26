@@ -1,4 +1,4 @@
-import { insertPublicationNames } from './update_publications.js'
+import { insertPublicationNames } from './update_publication_names.js'
 
 async function main() {
   await insertPublicationNames()

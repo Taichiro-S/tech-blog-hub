@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv'
+dotenv.config()
 import { createClient } from '@supabase/supabase-js'
 import axios from 'axios'
 import xml2js from 'xml2js'
@@ -5,6 +7,7 @@ import { promisify } from 'util'
 import { gunzip } from 'zlib'
 
 const gunzipAsync = promisify(gunzip)
+
 const supabaseUrl = process.env.SUPABASE_URL
 const supabaseKey = process.env.SUPABASE_KEY
 
@@ -23,6 +26,8 @@ export async function insertPublicationNames() {
     const result = await parser.parseStringPromise(xmlString)
     const urls = result.urlset.url.map((u) => u.loc[0])
     const publicationNames = urls.map((url) => url.split('/').pop())
+
+    console.log(`fetched ${publicationNames.length} publication names`)
 
     for (const publicationName of publicationNames) {
       let { data: publicationData, error: publicationError } = await supabase
