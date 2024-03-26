@@ -1,18 +1,14 @@
-const { createClient } = require('@supabase/supabase-js')
-const axios = require('axios')
-const xml2js = require('xml2js')
-const zlib = require('zlib')
-const util = require('util')
+import { createClient } from '@supabase/supabase-js'
+import axios from 'axios'
+import xml2js from 'xml2js'
+import { promisify } from 'util'
+import { gunzip } from 'zlib'
 
-const gunzipAsync = util.promisify(zlib.gunzip)
-
-// SupabaseのプロジェクトURLとAPIキーを設定
-
+const gunzipAsync = promisify(gunzip)
 const supabaseUrl = process.env.SUPABASE_URL
 const supabaseKey = process.env.SUPABASE_KEY
 
 const supabase = createClient(supabaseUrl, supabaseKey)
-
 async function insertPublicationNames() {
   try {
     const publicationUrl = 'https://zenn.dev/sitemaps/publication1.xml.gz'
