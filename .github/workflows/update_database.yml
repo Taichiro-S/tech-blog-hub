@@ -10,22 +10,25 @@ jobs:
   sync_publications:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
+      - uses: actions/checkout@v3
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
 
       - name: Install dependencies
         run: npm install
+      - name: Set up environment variables for .env
+        run: |
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> $GITHUB_ENV
+          echo "SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}" >> $GITHUB_ENV
+
+      - name: Generate .env
+        run: |
+          envsubst < .env.template > .env
+        env:
+          SUPABASE_URL: ${{ env.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ env.SUPABASE_KEY }}
 
       - name: Run the publication sync function
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-        run: |
-          ls -la
-          pwd
-          node -e scheduled_functions/main.js
+        run: node scheduled_functions/main.js
