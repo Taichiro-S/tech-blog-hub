@@ -1,0 +1,22 @@
+import axios from 'axios'
+
+import { sleep } from './utils.js'
+export async function fetchNewTopics(newArticles) {
+  let req = 0
+  console.log('Fetching topics')
+  const newTopics = []
+  for (const article of newArticles) {
+    const url = `https://zenn.dev/api/articles/${article.slug}`
+    const response = await axios.get(url)
+    req++
+    await sleep(1000)
+    const topics = response.data.article.topics
+    for (const topic of topics) {
+      topic['slug'] = article.slug
+    }
+    newTopics.push(...topics)
+  }
+  console.log('Total requests:', req)
+  console.log('Total topics:', newTopics.length)
+  return newTopics
+}

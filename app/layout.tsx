@@ -31,20 +31,23 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen">
           <header className="bg-stone-900 text-white p-4">
             <div className="flex container mx-auto px-4 py-6">
-              <h1 className="text-4xl font-bold">Tech Blog Hub</h1>
-              {/* Munu bar aligned to right */}
+              <h1 className="text-4xl font-bold">
+                <Link href="/" className="text-white">
+                  Tech Blog Hub
+                </Link>
+              </h1>
               <nav className="flex items-center mx-10">
                 <Link
-                  href="/about"
+                  href="/topics"
                   className="text-white rounded bg-stone-900 px-3 py-2 hover:bg-stone-600 mx-6"
                 >
-                  About
+                  トピックス
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/ranking"
                   className="text-white rounded bg-stone-900 px-3 py-2 hover:bg-stone-600"
                 >
-                  Contact
+                  ランキング
                 </Link>
               </nav>
             </div>

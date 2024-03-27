@@ -2,12 +2,12 @@
   "name": "tech-blog-hub",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "rm -rf .next/cache & next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "update-database": "node ./scheduled_functions/main.js"
   },
   "dependencies": {
     "@radix-ui/react-navigation-menu": "^1.1.4",
@@ -15,12 +15,14 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@supabase/auth-helpers-nextjs": "^0.9.0",
     "@supabase/supabase-js": "^2.40.0",
+    "@tanstack/react-table": "^8.15.0",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "dotenv": "^16.4.5",
     "firebase": "^10.9.0",
     "firebase-admin": "^12.0.0",
+    "https": "^1.0.0",
     "lucide-react": "^0.363.0",
     "next": "14.1.4",
     "react": "^18",

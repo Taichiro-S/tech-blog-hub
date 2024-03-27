@@ -1,19 +1,13 @@
-import * as dotenv from 'dotenv'
-dotenv.config()
-import { createClient } from '@supabase/supabase-js'
 import axios from 'axios'
 import xml2js from 'xml2js'
 import { promisify } from 'util'
 import { gunzip } from 'zlib'
+import { supabase } from './supabase.js'
 
 const gunzipAsync = promisify(gunzip)
 
-const supabaseUrl = process.env.SUPABASE_URL
-const supabaseKey = process.env.SUPABASE_KEY
-
-const supabase = createClient(supabaseUrl, supabaseKey)
-
 export async function insertPublicationNames() {
+  console.log('Fetching publication names')
   try {
     const publicationUrl = 'https://zenn.dev/sitemaps/publication1.xml.gz'
     const response = await axios.get(publicationUrl, {
@@ -29,22 +23,41 @@ export async function insertPublicationNames() {
 
     console.log(`fetched ${publicationNames.length} publication names`)
 
-    for (const publicationName of publicationNames) {
+    const { data, err } = await supabase.from('publications').select('name')
+
+    if (err) {
+      console.error('Error fetching publication_names:', err.message)
+      return
+    }
+
+    if (data.length === publicationNames.length) {
+      console.log('No new publication names found.')
+      return data.map((d) => d.name)
+    }
+
+    const newPublicationsNames = publicationNames.filter(
+      (publicationName) => !data.some((d) => d.name === publicationName),
+    )
+
+    console.log(`found ${newPublicationsNames.length} new publication names`)
+    console.log('Inserting publication names')
+
+    for (const publicationName of newPublicationsNames) {
       let { data: publicationData, error: publicationError } = await supabase
         .from('publications')
-        .upsert([{ name: publicationName }], { onConflict: ['name'] })
+        .insert([{ name: publicationName }])
+        .select('name')
 
       if (publicationError) {
         console.error(
           'Error inserting publication_names:',
           publicationError.message,
-          publicationError.status,
         )
-        return
       }
     }
+    console.log('Updated publication names.')
+    return publicationNames
   } catch (error) {
     console.error('ERROR:', error)
   }
-  console.log('Data insertion completed.')
 }
