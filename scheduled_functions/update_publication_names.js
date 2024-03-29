@@ -1,12 +1,22 @@
-import axios from 'axios'
-import xml2js from 'xml2js'
-import { promisify } from 'util'
-import { gunzip } from 'zlib'
-import { supabase } from './supabase.js'
+// import axios from 'axios'
+// import xml2js from 'xml2js'
+// import { promisify } from 'util'
+// import { gunzip } from 'zlib'
+// import { supabase } from './supabase.js'
 
-const gunzipAsync = promisify(gunzip)
+// const gunzipAsync = promisify(gunzip)
 
-export async function insertPublicationNames() {
+const axios = require('axios')
+const xml2js = require('xml2js')
+const util = require('util')
+const zlib = require('zlib')
+const supabase = require('./supabase.js')
+
+const gunzipAsync = util.promisify(zlib.gunzip)
+
+module.exports = { insertPublicationNames }
+
+async function insertPublicationNames() {
   console.log('Fetching publication names')
   try {
     const publicationUrl = 'https://zenn.dev/sitemaps/publication1.xml.gz'

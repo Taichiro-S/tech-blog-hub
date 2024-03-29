@@ -1,6 +1,10 @@
-import { supabase } from './supabase.js'
+// import { supabase } from './supabase.js'
 
-export async function insertTopics(newTopics) {
+const { supabase } = require('./supabase.js')
+
+module.exports = { insertTopics }
+
+async function insertTopics(newTopics) {
   console.log('Inserting topics')
   for (const topic of newTopics) {
     const { data: insertedTopic, error } = await supabase.from('topics').upsert(

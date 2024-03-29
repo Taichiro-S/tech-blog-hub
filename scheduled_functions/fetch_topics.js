@@ -1,7 +1,12 @@
-import axios from 'axios'
+// import axios from 'axios'
+// import { sleep } from './utils.js'
 
-import { sleep } from './utils.js'
-export async function fetchNewTopics(newArticles) {
+const axios = require('axios')
+const { sleep } = require('./utils.js')
+
+module.exports = { fetchNewTopics }
+
+async function fetchNewTopics(newArticles) {
   let req = 0
   console.log('Fetching topics')
   const newTopics = []
