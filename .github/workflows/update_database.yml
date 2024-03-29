@@ -15,7 +15,10 @@ jobs:
           node-version: '19'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd scheduled_functions
+          npm install
+          cd ..
       - name: Set up environment variables for .env
         run: |
           echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> $GITHUB_ENV
@@ -29,4 +32,6 @@ jobs:
           SUPABASE_KEY: ${{ env.SUPABASE_KEY }}
 
       - name: Run the publication sync function
-        run: node scheduled_functions/main.js
+        run: |
+          cd scheduled_functions
+          npm run update-database

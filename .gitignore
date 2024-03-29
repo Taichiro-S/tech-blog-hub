@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/scheduled_functions/node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz
