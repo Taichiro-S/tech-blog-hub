@@ -1,10 +1,10 @@
-// import { supabase } from './supabase.js'
+import { supabase } from './supabase.js'
 
-const { supabase } = require('./supabase.js')
+// const { supabase } = require('./supabase.js')
 
-module.exports = { updatePublications }
+// module.exports = { updatePublications }
 
-async function updatePublications(publicationsMetadatas) {
+export async function updatePublications(publicationsMetadatas) {
   console.log('Updating publications')
 
   const names = publicationsMetadatas.map((pm) => pm.name)

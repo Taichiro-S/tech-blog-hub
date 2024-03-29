@@ -1,13 +1,13 @@
-// import axios from 'axios'
-// import { supabase } from './supabase.js'
-// import { sleep } from './utils.js'
-const axios = require('axios')
-const { supabase } = require('./supabase.js')
-const { sleep } = require('./utils.js')
+import axios from 'axios'
+import { supabase } from './supabase.js'
+import { sleep } from './utils.js'
+// const axios = require('axios')
+// const { supabase } = require('./supabase.js')
+// const { sleep } = require('./utils.js')
 
-module.exports = { fetchAllZennPubArticles, fetchOldZennPubArticles }
+// module.exports = { fetchAllZennPubArticles, fetchOldZennPubArticles }
 
-async function fetchAllZennPubArticles(publicationNames) {
+export async function fetchAllZennPubArticles(publicationNames) {
   console.log('Fetching articles')
   const allArticles = []
   const publicationMetaDatas = []
