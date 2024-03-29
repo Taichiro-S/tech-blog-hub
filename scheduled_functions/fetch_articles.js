@@ -13,6 +13,7 @@ export async function fetchAllZennPubArticles(publicationNames) {
   const publicationMetaDatas = []
   let req = 0
   for (const publicationName of publicationNames) {
+    console.log('Fetching articles from:', publicationName)
     let total_liked_count = 0
     let total_article_count = 0
     let page = 1
@@ -20,10 +21,18 @@ export async function fetchAllZennPubArticles(publicationNames) {
     while (hasNext) {
       const articlesUrl = `https://zenn.dev/api/articles?order=latest&publication_name=${publicationName}&count=100&page=${page}`
       const response = await axios.get(articlesUrl)
-      await sleep(1000)
+      // await sleep(1000)
       req++
       const articles = response.data.articles
-      if (articles.length === 0) break
+      if (articles.length === 0) {
+        console.error('Articles not found')
+        break
+      }
+      const publication = articles[0].publication
+      if (!publication || publication.name !== publicationName) {
+        console.error('Publication not found')
+        break
+      }
       hasNext = !!response.data.next_page
       allArticles.push(...articles)
       total_article_count += articles.length

@@ -11,10 +11,11 @@ export async function fetchNewTopics(newArticles) {
   console.log('Fetching topics')
   const newTopics = []
   for (const article of newArticles) {
+    console.log('Fetching topics from:', article.slug)
     const url = `https://zenn.dev/api/articles/${article.slug}`
     const response = await axios.get(url)
     req++
-    await sleep(1000)
+    // await sleep(1000)
     const topics = response.data.article.topics
     for (const topic of topics) {
       topic['slug'] = article.slug
