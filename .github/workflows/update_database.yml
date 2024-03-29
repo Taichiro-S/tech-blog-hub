@@ -1,33 +1,32 @@
-# name: Daily Publication Sync
+name: Daily Publication Update
 
-# on:
-#   push:
-#     branches:
-#       - main
+on:
+  repository_dispatch:
+    types: [daily-publication-update]
 
-# jobs:
-#   sync_publications:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#       - name: Set up Node.js
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: '19'
+jobs:
+  sync_publications:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '19'
 
-#       - name: Install dependencies
-#         run: npm install
-#       - name: Set up environment variables for .env
-#         run: |
-#           echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> $GITHUB_ENV
-#           echo "SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}" >> $GITHUB_ENV
+      - name: Install dependencies
+        run: npm install
+      - name: Set up environment variables for .env
+        run: |
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> $GITHUB_ENV
+          echo "SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}" >> $GITHUB_ENV
 
-#       - name: Generate .env
-#         run: |
-#           envsubst < .env.template > .env
-#         env:
-#           SUPABASE_URL: ${{ env.SUPABASE_URL }}
-#           SUPABASE_KEY: ${{ env.SUPABASE_KEY }}
+      - name: Generate .env
+        run: |
+          envsubst < .env.template > .env
+        env:
+          SUPABASE_URL: ${{ env.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ env.SUPABASE_KEY }}
 
-#       - name: Run the publication sync function
-#         run: node scheduled_functions/main.js
+      - name: Run the publication sync function
+        run: node scheduled_functions/main.js
