@@ -11,19 +11,6 @@ import {
 import { fetchNewTopics } from './fetch_topics.js'
 import { updatePublications } from './update_publications.js'
 
-// const { insertPublicationNames } = require('./update_publication_names.js')
-// const { insertUsers } = require('./update_users.js')
-// const { insertTopics } = require('./update_topics.js')
-// const { insertArticles, updateArticle } = require('./update_articles.js')
-// const { insertPublicationsUsers } = require('./update_publications_users.js')
-// const { insertArticlesTopics } = require('./update_articles_topics.js')
-// const {
-//   fetchOldZennPubArticles,
-//   fetchAllZennPubArticles,
-// } = require('./fetch_articles.js')
-// const { fetchNewTopics } = require('./fetch_topics.js')
-// const { updatePublications } = require('./update_publications.js')
-
 export async function main() {
   const start = new Date()
   const publicationNames = await insertPublicationNames()

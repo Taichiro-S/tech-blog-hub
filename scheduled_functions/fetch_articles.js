@@ -1,11 +1,6 @@
 import axios from 'axios'
 import { supabase } from './supabase.js'
 import { sleep } from './utils.js'
-// const axios = require('axios')
-// const { supabase } = require('./supabase.js')
-// const { sleep } = require('./utils.js')
-
-// module.exports = { fetchAllZennPubArticles, fetchOldZennPubArticles }
 
 export async function fetchAllZennPubArticles(publicationNames) {
   console.log('Fetching articles')
@@ -21,7 +16,7 @@ export async function fetchAllZennPubArticles(publicationNames) {
     while (hasNext) {
       const articlesUrl = `https://zenn.dev/api/articles?order=latest&publication_name=${publicationName}&count=100&page=${page}`
       const response = await axios.get(articlesUrl)
-      // await sleep(1000)
+      await sleep(1000)
       req++
       const articles = response.data.articles
       if (articles.length === 0) {

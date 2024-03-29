@@ -1,11 +1,6 @@
 import axios from 'axios'
 import { sleep } from './utils.js'
 
-// const axios = require('axios')
-// const { sleep } = require('./utils.js')
-
-// module.exports = { fetchNewTopics }
-
 export async function fetchNewTopics(newArticles) {
   let req = 0
   console.log('Fetching topics')
@@ -15,7 +10,7 @@ export async function fetchNewTopics(newArticles) {
     const url = `https://zenn.dev/api/articles/${article.slug}`
     const response = await axios.get(url)
     req++
-    // await sleep(1000)
+    await sleep(1000)
     const topics = response.data.article.topics
     for (const topic of topics) {
       topic['slug'] = article.slug

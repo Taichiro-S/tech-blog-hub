@@ -3,18 +3,7 @@ import xml2js from 'xml2js'
 import { promisify } from 'util'
 import { gunzip } from 'zlib'
 import { supabase } from './supabase.js'
-
 const gunzipAsync = promisify(gunzip)
-
-// const axios = require('axios')
-// const xml2js = require('xml2js')
-// const util = require('util')
-// const zlib = require('zlib')
-// const supabase = require('./supabase.js')
-
-// const gunzipAsync = util.promisify(zlib.gunzip)
-
-// module.exports = { insertPublicationNames }
 
 export async function insertPublicationNames() {
   console.log('Fetching publication names')
@@ -65,7 +54,6 @@ export async function insertPublicationNames() {
         )
       }
     }
-    console.log('Updated publication names.')
     return publicationNames
   } catch (error) {
     console.error('ERROR:', error)

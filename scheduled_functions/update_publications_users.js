@@ -1,7 +1,4 @@
 import { supabase } from './supabase.js'
-// const { supabase } = require('./supabase.js')
-
-// module.exports = { insertPublicationsUsers }
 
 export async function insertPublicationsUsers(newArticles) {
   console.log('Inserting publications_users')
@@ -54,5 +51,4 @@ export async function insertPublicationsUsers(newArticles) {
       }
     }
   }
-  console.log('Inserted publications_users')
 }

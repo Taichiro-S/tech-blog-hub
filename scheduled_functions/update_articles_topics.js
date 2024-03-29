@@ -1,9 +1,5 @@
 import { supabase } from './supabase.js'
 
-// const { supabase } = require('./supabase.js')
-
-// module.exports = { insertArticlesTopics }
-
 export async function insertArticlesTopics(newTopics) {
   console.log('Inserting articles_topics')
   for (const topic of newTopics) {
@@ -56,5 +52,4 @@ export async function insertArticlesTopics(newTopics) {
       }
     }
   }
-  console.log('Inserted articles_topics')
 }

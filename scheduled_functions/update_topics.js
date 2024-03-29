@@ -1,9 +1,5 @@
 import { supabase } from './supabase.js'
 
-// const { supabase } = require('./supabase.js')
-
-// module.exports = { insertTopics }
-
 export async function insertTopics(newTopics) {
   console.log('Inserting topics')
   for (const topic of newTopics) {
@@ -25,3 +21,23 @@ export async function insertTopics(newTopics) {
     }
   }
 }
+
+// export async function insertTopics(newTopics) {
+//   console.log('Inserting topics')
+//   const names = newTopics.map((pm) => pm.name)
+//   const displayNames = newTopics.map((pm) => pm.display_name)
+//   const taggingsCounts = newTopics.map((pm) => pm.taggings_counts)
+//   const imageUrls = newTopics.map((pm) => pm.image_urls)
+
+//   const { data, error } = await supabase.rpc('update_topics', {
+//     names: names,
+//     display_names: displayNames,
+//     taggings_counts: taggingsCounts,
+//     image_urls: imageUrls,
+//   })
+
+//   if (error) {
+//     console.error('Error inserting topic:', error)
+//     return
+//   }
+// }

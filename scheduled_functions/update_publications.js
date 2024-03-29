@@ -1,9 +1,5 @@
 import { supabase } from './supabase.js'
 
-// const { supabase } = require('./supabase.js')
-
-// module.exports = { updatePublications }
-
 export async function updatePublications(publicationsMetadatas) {
   console.log('Updating publications')
 
